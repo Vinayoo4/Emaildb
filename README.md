@@ -44,6 +44,7 @@
 </ul>
 
 <h2>License</h2>
+<h1>MIT</h1>
 <p>This project is for educational/demo purposes.</p>
 
 
