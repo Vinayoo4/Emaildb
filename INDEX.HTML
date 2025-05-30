@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gen Z Email Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fefefe 0%, #ffe6fa 100%);
+      --text: #1e1e1e;
+      --card-bg: rgba(255,255,255,0.65);
+      --card-border: rgba(255,128,171,0.18);
+      --accent: #ff80ab;
+      --accent-gradient: linear-gradient(90deg, #ff80ab, #ff69b4 70%);
+      --badge-bg: #ff80ab22;
+      --overlay: rgba(0,0,0,0.6);
+      --modal-bg: rgba(255,255,255,0.85);
+      --focus: #ff80ab;
+    }
+    body.bubblegum {
+      --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #ffe6fa 100%);
+      --text: #5a005a;
+      --card-bg: rgba(255,255,255,0.75);
+      --accent: #ff69b4;
+      --accent-gradient: linear-gradient(90deg, #ff69b4, #ff80ab 70%);
+      --badge-bg: #ff69b422;
+      --focus: #ff69b4;
+    }
+    body.matrix {
+      --bg-gradient: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      --text: #00ff00;
+      --card-bg: rgba(17,17,17,0.8);
+      --accent: #00ff00;
+      --accent-gradient: linear-gradient(90deg, #00ff00, #00ffa3 70%);
+      --badge-bg: #00ff0022;
+      --focus: #00ff00;
+    }
+    body.vaporwave {
+      --bg-gradient: linear-gradient(135deg, #fdf6e3 0%, #ffe4e1 100%);
+      --text: #ff6ec7;
+      --card-bg: rgba(255,228,225,0.7);
+      --accent: #ff77ff;
+      --accent-gradient: linear-gradient(90deg, #ff77ff, #b49fff 70%);
+      --badge-bg: #ff77ff22;
+      --focus: #ff77ff;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: background 0.6s cubic-bezier(.77,0,.18,1), color 0.3s;
+    }
+    h1 {
+      text-align: center;
+      padding-top: 32px;
+      font-size: 2.4rem;
+      letter-spacing: 0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px #fff7, 0 1px 2px #0002;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding: 18px 0 10px 0;
+      flex-wrap: wrap;
+      background: transparent;
+    }
+    .controls input,
+    .controls select,
+    .controls button {
+      padding: 11px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--card-border);
+      font-size: 15px;
+      background: rgba(255,255,255,0.8);
+      margin-bottom: 4px;
+      outline: none;
+      box-shadow: 0 2px 8px #0001;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .controls input:focus,
+    .controls select:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 2px var(--focus)33;
+    }
+    .controls button {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ff80ab22;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .controls button:active {
+      transform: scale(0.96);
+    }
+    .controls select {
+      background: rgba(255,255,255,0.95);
+      color: var(--accent);
+      font-weight: 600;
+      border: 2px solid var(--accent);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      padding: 36px 24px 24px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .embed {
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.14), 0 1.5px 6px 0 var(--accent)11;
+      border: 1.5px solid var(--card-border);
+      overflow: hidden;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform 0.18s cubic-bezier(.77,0,.18,1), box-shadow 0.18s, border 0.18s;
+      position: relative;
+      outline: none;
+    }
+    .embed:hover, .embed:focus {
+      transform: translateY(-6px) scale(1.035);
+      box-shadow: 0 16px 40px 0 var(--accent)33, 0 2px 16px 0 #0002;
+      border-color: var(--accent);
+      z-index: 2;
+    }
+    .embed iframe {
+      width: 100%;
+      height: 240px;
+      border: none;
+      display: block;
+      border-bottom: 1.5px solid var(--accent)22;
+      background: #fff;
+    }
+    .card-category {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 700;
+      font-size: 1.07rem;
+      color: var(--accent);
+      padding: 12px 0 7px 0;
+      text-align: center;
+      text-transform: capitalize;
+      letter-spacing: 0.01em;
+    }
+    .category-badge {
+      background: var(--badge-bg);
+      border-radius: 999px;
+      padding: 4px 14px 4px 10px;
+      font-size: 1.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      border: 1px solid var(--accent)22;
+    }
+    .embed p {
+      padding: 0 18px 18px 18px;
+      font-size: 1.08rem;
+      text-align: center;
+      color: var(--text);
+      margin: 0;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    #emptyState {
+      display: none;
+      text-align: center;
+      color: var(--accent);
+      font-size: 1.18rem;
+      margin-top: 36px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: var(--overlay);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.26s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background: var(--modal-bg);
+      color: var(--text);
+      padding: 0 0 24px 0;
+      border-radius: 24px;
+      max-width: 94vw;
+      width: 480px;
+      max-height: 92vh;
+      overflow: auto;
+      position: relative;
+      animation: zoomIn 0.3s cubic-bezier(.77,0,.18,1);
+      outline: none;
+      box-shadow: 0 8px 40px 0 var(--accent)33, 0 2px 16px 0 #0002;
+      border: 2.5px solid var(--accent)22;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-content iframe {
+      width: 100%;
+      height: 56vh;
+      border: none;
+      border-radius: 18px 18px 0 0;
+      background: #fff;
+    }
+    .close-btn {
+      position: absolute;
+      top: 9px;
+      right: 17px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      z-index: 2;
+      transition: color 0.2s;
+      padding: 0;
+      line-height: 1;
+    }
+    .close-btn:focus {
+      color: #fff;
+      background: var(--accent);
+      border-radius: 50%;
+      outline: 2px solid var(--focus);
+    }
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 96vw;
+        padding: 0 0 12px 0;
+      }
+      .modal-content iframe {
+        height: 36vh;
+      }
+      .card-grid {
+        padding: 18px 4vw 18px 4vw;
+        gap: 18px;
+      }
+      .embed iframe {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body class="bubblegum">
+  <h1>🎈 Gen Z Email Cards</h1>
+  <div class="controls">
+    <input id="searchInput" type="text" placeholder="Search by category or title..." aria-label="Search by category or title">
+    <input id="titleInput" type="text" placeholder="Embed title" aria-label="Embed title">
+    <input id="categoryInput" type="text" placeholder="Category" aria-label="Category">
+    <input id="urlInput" type="text" placeholder="Scribd embed URL" aria-label="Scribd embed URL">
+    <button onclick="addEmbed()" id="addBtn">
+      <span>➕</span> Add Embed
+    </button>
+    <button onclick="shareEmbeds()" id="shareBtn" title="Share your embeds">
+      <span>🔗</span> Share
+    </button>
+    <select id="themeSwitcher" onchange="switchTheme(this.value)" aria-label="Theme switcher">
+      <option value="bubblegum">Bubblegum</option>
+      <option value="matrix">Matrix</option>
+      <option value="vaporwave">Vaporwave</option>
+    </select>
+  </div>
+  <div class="card-grid" id="grid"></div>
+  <div id="emptyState">No embeds found.</div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Embed Modal">
+    <div class="modal-content" tabindex="-1">
+      <button class="close-btn" id="closeBtn" aria-label="Close modal">✖</button>
+      <iframe id="modalIframe" src="" title="Embed preview"></iframe>
+    </div>
+  </div>
+  <div class="modal" id="shareModal" style="display:none;" role="dialog" aria-modal="true" aria-label="Share Modal">
+    <div class="modal-content" tabindex="-1" style="max-width:600px;">
+      <button class="close-btn" id="closeShareBtn" aria-label="Close share modal">✖</button>
+      <h2 style="text-align:center;margin:18px 0 10px 0;">Share Your Embeds</h2>
+      <textarea id="shareTextarea" style="width:95%;height:120px;margin:0 auto 12px auto;display:block;border-radius:10px;padding:10px;font-size:1rem;"></textarea>
+      <button onclick="copyShareLink()" style="margin:0 auto;display:block;background:var(--accent-gradient);color:#fff;padding:10px 24px;border:none;border-radius:8px;font-weight:600;cursor:pointer;">Copy Share Link</button>
+      <div id="shareCopied" style="text-align:center;color:var(--accent);margin-top:10px;display:none;">Copied!</div>
+      <hr style="margin:18px 0;">
+      <h3 style="text-align:center;">Import Shared Embeds</h3>
+      <textarea id="importTextarea" style="width:95%;height:80px;margin:0 auto 10px auto;display:block;border-radius:10px;padding:10px;font-size:1rem;" placeholder="Paste shared embed code here"></textarea>
+      <button onclick="importEmbeds()" style="margin:0 auto;display:block;background:var(--accent-gradient);color:#fff;padding:8px 20px;border:none;border-radius:8px;font-weight:600;cursor:pointer;">Import</button>
+      <div id="importStatus" style="text-align:center;color:var(--accent);margin-top:10px;display:none;"></div>
+    </div>
+  </div>
+  <script>
+    // --- Persistence helpers ---
+    function saveEmbedsToStorage(embeds) {
+      localStorage.setItem('genz_embeds', JSON.stringify(embeds));
+    }
+    function loadEmbedsFromStorage() {
+      return JSON.parse(localStorage.getItem('genz_embeds') || '[]');
+    }
+
+    // --- DOM Elements ---
+    const grid = document.getElementById("grid");
+    const modal = document.getElementById("modal");
+    const modalIframe = document.getElementById("modalIframe");
+    const closeBtn = document.getElementById("closeBtn");
+    const modalContent = document.querySelector(".modal-content");
+    const emptyState = document.getElementById("emptyState");
+    const shareModal = document.getElementById("shareModal");
+    const closeShareBtn = document.getElementById("closeShareBtn");
+    const shareTextarea = document.getElementById("shareTextarea");
+    const shareCopied = document.getElementById("shareCopied");
+    const importTextarea = document.getElementById("importTextarea");
+    const importStatus = document.getElementById("importStatus");
+
+    // --- Initial Embeds (no duplicate URLs) ---
+    const initialEmbeds = [
+      {
+        title: "14M BTC user leads 🔥",
+        category: "crypto",
+        url: "https://www.scribd.com/embeds/626662329/content?start_page=1&view_mode=scroll&access_key=key-EDW4Y3DYz1GCbSiONuGy"
+      },
+      {
+        title: "Free Email Database of USA",
+        category: "usa",
+        url: "https://www.scribd.com/embeds/602150644/content?start_page=1&view_mode=scroll&access_key=key-h0nMosJdnChr7ZttCcvj"
+      },
+      {
+        title: "1.3 Million - THAILAND Email Leads",
+        category: "thailand",
+        url: "https://www.scribd.com/embeds/702112575/content?start_page=1&view_mode=scroll&access_key=key-67KUHqVGphpiDY8H42i9"
+      },
+      {
+        title: "UK 11000 Mails",
+        category: "uk",
+        url: "https://www.scribd.com/embeds/794248633/content?start_page=1&view_mode=scroll&access_key=key-SvITC5b4ZIe6eXoXxoKv"
+      },
+      {
+        title: "Contractors E-mail",
+        category: "contractors",
+        url: "https://www.scribd.com/embeds/673056750/content?start_page=1&view_mode=scroll&access_key=key-6bTv0e3xeUrjOVFophFm"
+      },
+      {
+        title: "IT Email Database of Usa b2b Corporate Companies Business Sample",
+        category: "usa",
+        url: "https://www.scribd.com/embeds/712410895/content?start_page=1&view_mode=scroll&access_key=key-mLepcXkt7QaMiWLu7pdS"
+      },
+      {
+        title: "10k A Month With YouTube Automation Guide by Chems",
+        category: "youtube",
+        url: "https://www.scribd.com/embeds/736060254/content?start_page=1&view_mode=scroll&access_key=key-lqmT19PPbR36NQrQvXVW"
+      },
+      {
+        title: "Basics of Medical Billing & Coding",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/553581081/content?start_page=1&view_mode=scroll&access_key=key-3EyJxe9xMzlKtcqTjHDb"
+      },
+      {
+        title: "RCM Cycle",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/516171625/content?start_page=1&view_mode=scroll&access_key=key-i3cDSB4LvUoMHh6C0CHp"
+      },
+      {
+        title: "Neuropsychology for Health Care Professionals and Attorneys (2000)",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/457547191/content?start_page=1&view_mode=scroll&access_key=key-mfKQ0e4MtDb0LAEdUEhs"
+      }
+    ];
+
+    // --- Load or Initialize Embeds ---
+    let embeds = loadEmbedsFromStorage();
+    if (embeds.length === 0) {
+      embeds = initialEmbeds;
+      saveEmbedsToStorage(embeds);
+    }
+
+    // --- Category icons ---
+    const categoryIcons = {
+      crypto: "🪙",
+      tech: "💻",
+      design: "🎨",
+      finance: "💰",
+      news: "📰",
+      music: "🎵",
+      art: "🖼️",
+      science: "🔬",
+      gaming: "🎮",
+      sports: "🏀",
+      book: "📚",
+      web: "🌐",
+      youtube: "▶️",
+      medical: "🩺",
+      contractors: "👷",
+      thailand: "🇹🇭",
+      uk: "🇬🇧",
+      usa: "🇺🇸",
+      default: "✨"
+    };
+
+    // --- Render Function (search by title or category) ---
+    function renderEmbeds(filter = "") {
+      grid.innerHTML = "";
+      let anyVisible = false;
+      embeds.forEach((embed, idx) => {
+        if (
+          filter &&
+          !(
+            embed.category.toLowerCase().includes(filter.toLowerCase()) ||
+            embed.title.toLowerCase().includes(filter.toLowerCase())
+          )
+        ) return;
+        anyVisible = true;
+        const card = document.createElement("div");
+        card.className = "embed";
+        card.setAttribute("data-category", embed.category.toLowerCase());
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Open embed: ${embed.title}`);
+        // Icon for category
+        const icon = categoryIcons[embed.category.toLowerCase()] || categoryIcons.default;
+        card.innerHTML = `
+          <div class="card-category">
+            <span class="category-badge">${icon} ${capitalize(embed.category)}</span>
+          </div>
+          <iframe src="${embed.url}" title="${embed.title}"></iframe>
+          <p>${embed.title}</p>
+        `;
+        // Card click/keyboard event
+        card.addEventListener("click", () => openModal(embed.url));
+        card.addEventListener("keypress", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(embed.url);
+        });
+        grid.appendChild(card);
+      });
+      emptyState.style.display = anyVisible ? "none" : "block";
+    }
+
+    // --- Capitalize helper ---
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // --- Modal Functions with Focus Trap ---
+    function openModal(url) {
+      modalIframe.src = url;
+      modal.style.display = "flex";
+      setTimeout(() => {
+        closeBtn.focus();
+      }, 100);
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      modal.style.display = "none";
+      modalIframe.src = "";
+      document.body.style.overflow = "";
+    }
+    // Focus trap for modal
+    modal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+      // Trap focus inside modal
+      const focusable = modal.querySelectorAll('button, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // --- Add Embed Function with Validation ---
+    function addEmbed() {
+      const title = document.getElementById("titleInput").value.trim();
+      const category = document.getElementById("categoryInput").value.trim();
+      const url = document.getElementById("urlInput").value.trim();
+      if (!title || !category || !url) {
+        alert("Please fill all fields");
+        return;
+      }
+      // Basic Scribd embed URL validation
+      if (!/^https:\/\/www\.scribd\.com\/embeds\//.test(url)) {
+        alert("Please enter a valid Scribd embed URL.");
+        return;
+      }
+      // Allow same URL with different title/category
+      if (embeds.some(e => e.title === title && e.category === category && e.url === url)) {
+        alert("This embed already exists.");
+        return;
+      }
+      embeds.unshift({ title, category, url });
+      saveEmbedsToStorage(embeds);
+      renderEmbeds(document.getElementById("searchInput").value);
+      document.getElementById("titleInput").value = "";
+      document.getElementById("categoryInput").value = "";
+      document.getElementById("urlInput").value = "";
+    }
+
+    // --- Theme Switcher ---
+    function switchTheme(theme) {
+      document.body.className = theme;
+    }
+
+    // --- Search Filter ---
+    document.getElementById("searchInput").addEventListener("input", function(e) {
+      renderEmbeds(e.target.value);
+    });
+
+    // --- Initial Render ---
+    renderEmbeds();
+
+    // --- Keyboard accessibility for add button
+    document.getElementById("addBtn").addEventListener("keypress", function(e) {
+      if (e.key === "Enter" || e.key === " ") addEmbed();
+    });
+
+    // --- Share Feature ---
+    function shareEmbeds() {
+      // Export only user-added embeds (not initialEmbeds)
+      const userEmbeds = embeds.filter(e => !initialEmbeds.some(init =>
+        init.title === e.title && init.category === e.category && init.url === e.url
+      ));
+      const exportData = JSON.stringify(userEmbeds, null, 2);
+      shareTextarea.value = exportData;
+      shareCopied.style.display = "none";
+      importTextarea.value = "";
+      importStatus.style.display = "none";
+      shareModal.style.display = "flex";
+      setTimeout(() => closeShareBtn.focus(), 100);
+      document.body.style.overflow = "hidden";
+    }
+    function closeShareModal() {
+      shareModal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+    closeShareBtn.addEventListener("click", closeShareModal);
+    shareModal.addEventListener("click", function(e) {
+      if (e.target === shareModal) closeShareModal();
+    });
+    shareModal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeShareModal();
+      // Trap focus inside modal
+      const focusable = shareModal.querySelectorAll('button, [tabindex]:not([tabindex="-1"]), textarea');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+
+    function copyShareLink() {
+      shareTextarea.select();
+      document.execCommand("copy");
+      shareCopied.style.display = "block";
+      setTimeout(() => { shareCopied.style.display = "none"; }, 1500);
+    }
+
+    function importEmbeds() {
+      let data;
+      try {
+        data = JSON.parse(importTextarea.value);
+        if (!Array.isArray(data)) throw new Error();
+      } catch {
+        importStatus.textContent = "Invalid embed data!";
+        importStatus.style.display = "block";
+        return;
+      }
+      let added = 0;
+      data.forEach(embed => {
+        if (
+          embed.title && embed.category && embed.url &&
+          /^https:\/\/www\.scribd\.com\/embeds\//.test(embed.url) &&
+          !embeds.some(e => e.title === embed.title && e.category === embed.category && e.url === embed.url)
+        ) {
+          embeds.unshift(embed);
+          added++;
+        }
+      });
+      if (added > 0) {
+        saveEmbedsToStorage(embeds);
+        renderEmbeds(document.getElementById("searchInput").value);
+        importStatus.textContent = `Imported ${added} embed(s)!`;
+      } else {
+        importStatus.textContent = "No new valid embeds found.";
+      }
+      importStatus.style.display = "block";
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gen Z Email Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fefefe 0%, #ffe6fa 100%);
+      --text: #1e1e1e;
+      --card-bg: rgba(255,255,255,0.65);
+      --card-border: rgba(255,128,171,0.18);
+      --accent: #ff80ab;
+      --accent-gradient: linear-gradient(90deg, #ff80ab, #ff69b4 70%);
+      --badge-bg: #ff80ab22;
+      --overlay: rgba(0,0,0,0.6);
+      --modal-bg: rgba(255,255,255,0.85);
+      --focus: #ff80ab;
+    }
+
+    body.bubblegum {
+      --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #ffe6fa 100%);
+      --text: #5a005a;
+      --card-bg: rgba(255,255,255,0.75);
+      --accent: #ff69b4;
+      --accent-gradient: linear-gradient(90deg, #ff69b4, #ff80ab 70%);
+      --badge-bg: #ff69b422;
+      --focus: #ff69b4;
+    }
+
+    body.matrix {
+      --bg-gradient: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      --text: #00ff00;
+      --card-bg: rgba(17,17,17,0.8);
+      --accent: #00ff00;
+      --accent-gradient: linear-gradient(90deg, #00ff00, #00ffa3 70%);
+      --badge-bg: #00ff0022;
+      --focus: #00ff00;
+    }
+
+    body.vaporwave {
+      --bg-gradient: linear-gradient(135deg, #fdf6e3 0%, #ffe4e1 100%);
+      --text: #ff6ec7;
+      --card-bg: rgba(255,228,225,0.7);
+      --accent: #ff77ff;
+      --accent-gradient: linear-gradient(90deg, #ff77ff, #b49fff 70%);
+      --badge-bg: #ff77ff22;
+      --focus: #ff77ff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: background 0.6s cubic-bezier(.77,0,.18,1), color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+      padding-top: 32px;
+      font-size: 2.4rem;
+      letter-spacing: 0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px #fff7, 0 1px 2px #0002;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding: 18px 0 10px 0;
+      flex-wrap: wrap;
+      background: transparent;
+    }
+    .controls input,
+    .controls select,
+    .controls button {
+      padding: 11px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--card-border);
+      font-size: 15px;
+      background: rgba(255,255,255,0.8);
+      margin-bottom: 4px;
+      outline: none;
+      box-shadow: 0 2px 8px #0001;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .controls input:focus,
+    .controls select:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 2px var(--focus)33;
+    }
+    .controls button {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ff80ab22;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .controls button:active {
+      transform: scale(0.96);
+    }
+    .controls select {
+      background: rgba(255,255,255,0.95);
+      color: var(--accent);
+      font-weight: 600;
+      border: 2px solid var(--accent);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      padding: 36px 24px 24px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .embed {
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.14), 0 1.5px 6px 0 var(--accent)11;
+      border: 1.5px solid var(--card-border);
+      overflow: hidden;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform 0.18s cubic-bezier(.77,0,.18,1), box-shadow 0.18s, border 0.18s;
+      position: relative;
+      outline: none;
+    }
+    .embed:hover, .embed:focus {
+      transform: translateY(-6px) scale(1.035);
+      box-shadow: 0 16px 40px 0 var(--accent)33, 0 2px 16px 0 #0002;
+      border-color: var(--accent);
+      z-index: 2;
+    }
+    .embed iframe {
+      width: 100%;
+      height: 240px;
+      border: none;
+      display: block;
+      border-bottom: 1.5px solid var(--accent)22;
+      background: #fff;
+    }
+    .card-category {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 700;
+      font-size: 1.07rem;
+      color: var(--accent);
+      padding: 12px 0 7px 0;
+      text-align: center;
+      text-transform: capitalize;
+      letter-spacing: 0.01em;
+    }
+    .category-badge {
+      background: var(--badge-bg);
+      border-radius: 999px;
+      padding: 4px 14px 4px 10px;
+      font-size: 1.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      border: 1px solid var(--accent)22;
+    }
+    .embed p {
+      padding: 0 18px 18px 18px;
+      font-size: 1.08rem;
+      text-align: center;
+      color: var(--text);
+      margin: 0;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    #emptyState {
+      display: none;
+      text-align: center;
+      color: var(--accent);
+      font-size: 1.18rem;
+      margin-top: 36px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: var(--overlay);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.26s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background: var(--modal-bg);
+      color: var(--text);
+      padding: 0 0 24px 0;
+      border-radius: 24px;
+      max-width: 94vw;
+      width: 480px;
+      max-height: 92vh;
+      overflow: auto;
+      position: relative;
+      animation: zoomIn 0.3s cubic-bezier(.77,0,.18,1);
+      outline: none;
+      box-shadow: 0 8px 40px 0 var(--accent)33, 0 2px 16px 0 #0002;
+      border: 2.5px solid var(--accent)22;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-content iframe {
+      width: 100%;
+      height: 56vh;
+      border: none;
+      border-radius: 18px 18px 0 0;
+      background: #fff;
+    }
+    .close-btn {
+      position: absolute;
+      top: 9px;
+      right: 17px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      z-index: 2;
+      transition: color 0.2s;
+      padding: 0;
+      line-height: 1;
+    }
+    .close-btn:focus {
+      color: #fff;
+      background: var(--accent);
+      border-radius: 50%;
+      outline: 2px solid var(--focus);
+    }
+
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 96vw;
+        padding: 0 0 12px 0;
+      }
+      .modal-content iframe {
+        height: 36vh;
+      }
+      .card-grid {
+        padding: 18px 4vw 18px 4vw;
+        gap: 18px;
+      }
+      .embed iframe {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body class="bubblegum">
+  <h1>🎈 Gen Z Email Cards</h1>
+  <div class="controls">
+    <input id="searchInput" type="text" placeholder="Search by category..." aria-label="Search by category">
+    <input id="titleInput" type="text" placeholder="Embed title" aria-label="Embed title">
+    <input id="categoryInput" type="text" placeholder="Category" aria-label="Category">
+    <input id="urlInput" type="text" placeholder="Scribd embed URL" aria-label="Scribd embed URL">
+    <button onclick="addEmbed()" id="addBtn">
+      <span>➕</span> Add Embed
+    </button>
+    <button onclick="shareEmbeds()" id="shareBtn" title="Share your embeds">
+      <span>🔗</span> Share
+    </button>
+    <select id="themeSwitcher" onchange="switchTheme(this.value)" aria-label="Theme switcher">
+      <option value="bubblegum">Bubblegum</option>
+      <option value="matrix">Matrix</option>
+      <option value="vaporwave">Vaporwave</option>
+    </select>
+  </div>
+  <div class="card-grid" id="grid"></div>
+  <div id="emptyState">No embeds found.</div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Embed Modal">
+    <div class="modal-content" tabindex="-1">
+      <button class="close-btn" id="closeBtn" aria-label="Close modal">✖</button>
+      <iframe id="modalIframe" src="" title="Embed preview"></iframe>
+    </div>
+  </div>
+  <div class="modal" id="shareModal" style="display:none;" role="dialog" aria-modal="true" aria-label="Share Modal">
+    <div class="modal-content" tabindex="-1" style="max-width:600px;">
+      <button class="close-btn" id="closeShareBtn" aria-label="Close share modal">✖</button>
+      <h2 style="text-align:center;margin:18px 0 10px 0;">Share Your Embeds</h2>
+      <textarea id="shareTextarea" style="width:95%;height:120px;margin:0 auto 12px auto;display:block;border-radius:10px;padding:10px;font-size:1rem;"></textarea>
+      <button onclick="copyShareLink()" style="margin:0 auto;display:block;background:var(--accent-gradient);color:#fff;padding:10px 24px;border:none;border-radius:8px;font-weight:600;cursor:pointer;">Copy Share Link</button>
+      <div id="shareCopied" style="text-align:center;color:var(--accent);margin-top:10px;display:none;">Copied!</div>
+      <hr style="margin:18px 0;">
+      <h3 style="text-align:center;">Import Shared Embeds</h3>
+      <textarea id="importTextarea" style="width:95%;height:80px;margin:0 auto 10px auto;display:block;border-radius:10px;padding:10px;font-size:1rem;" placeholder="Paste shared embed code here"></textarea>
+      <button onclick="importEmbeds()" style="margin:0 auto;display:block;background:var(--accent-gradient);color:#fff;padding:8px 20px;border:none;border-radius:8px;font-weight:600;cursor:pointer;">Import</button>
+      <div id="importStatus" style="text-align:center;color:var(--accent);margin-top:10px;display:none;"></div>
+    </div>
+  </div>
+  <script>
+    // --- Persistence helpers ---
+    function saveEmbedsToStorage(embeds) {
+      localStorage.setItem('genz_embeds', JSON.stringify(embeds));
+    }
+    function loadEmbedsFromStorage() {
+      return JSON.parse(localStorage.getItem('genz_embeds') || '[]');
+    }
+
+    // --- DOM Elements ---
+    const grid = document.getElementById("grid");
+    const modal = document.getElementById("modal");
+    const modalIframe = document.getElementById("modalIframe");
+    const closeBtn = document.getElementById("closeBtn");
+    const modalContent = document.querySelector(".modal-content");
+    const emptyState = document.getElementById("emptyState");
+    const shareModal = document.getElementById("shareModal");
+    const closeShareBtn = document.getElementById("closeShareBtn");
+    const shareTextarea = document.getElementById("shareTextarea");
+    const shareCopied = document.getElementById("shareCopied");
+    const importTextarea = document.getElementById("importTextarea");
+    const importStatus = document.getElementById("importStatus");
+
+    // --- Initial Embeds ---
+    const initialEmbeds = [
+      {
+        title: "14M BTC user leads 🔥",
+        category: "crypto",
+        url: "https://www.scribd.com/embeds/626662329/content?start_page=1&view_mode=scroll&access_key=key-EDW4Y3DYz1GCbSiONuGy"
+      },
+      {
+        title: "Free Email Database of USA",
+        category: "usa",
+        url: "https://www.scribd.com/embeds/602150644/content?start_page=1&view_mode=scroll&access_key=key-h0nMosJdnChr7ZttCcvj"
+      },
+      {
+        title: "1.3 Million - THAILAND Email Leads",
+        category: "thailand",
+        url: "https://www.scribd.com/embeds/702112575/content?start_page=1&view_mode=scroll&access_key=key-67KUHqVGphpiDY8H42i9"
+      },
+      {
+        title: "Free Email Database of UK",
+        category: "uk",
+        url: "https://www.scribd.com/embeds/602150644/content?start_page=1&view_mode=scroll&access_key=key-h0nMosJdnChr7ZttCcvj"
+      },
+      {
+        title: "Contractors E-mail",
+        category: "contractors",
+        url: "https://www.scribd.com/embeds/673056750/content?start_page=1&view_mode=scroll&access_key=key-6bTv0e3xeUrjOVFophFm"
+      },
+      {
+        title: "IT Email Database of Usa b2b Corporate Companies Business Sample",
+        category: "usa",
+        url: "https://www.scribd.com/embeds/712410895/content?start_page=1&view_mode=scroll&access_key=key-mLepcXkt7QaMiWLu7pdS"
+      },
+      {
+        title: "10k A Month With YouTube Automation Guide by Chems",
+        category: "youtube",
+        url: "https://www.scribd.com/embeds/736060254/content?start_page=1&view_mode=scroll&access_key=key-lqmT19PPbR36NQrQvXVW"
+      },
+      {
+        title: "Basics of Medical Billing & Coding",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/553581081/content?start_page=1&view_mode=scroll&access_key=key-3EyJxe9xMzlKtcqTjHDb"
+      },
+      {
+        title: "RCM Cycle",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/516171625/content?start_page=1&view_mode=scroll&access_key=key-i3cDSB4LvUoMHh6C0CHp"
+      },
+      {
+        title: "Neuropsychology for Health Care Professionals and Attorneys (2000)",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/457547191/content?start_page=1&view_mode=scroll&access_key=key-mfKQ0e4MtDb0LAEdUEhs"
+      }
+    ];
+
+    // --- Load or Initialize Embeds ---
+    let embeds = loadEmbedsFromStorage();
+    if (embeds.length === 0) {
+      embeds = initialEmbeds;
+      saveEmbedsToStorage(embeds);
+    }
+
+    // --- Category icons ---
+    const categoryIcons = {
+      crypto: "🪙",
+      tech: "💻",
+      design: "🎨",
+      finance: "💰",
+      news: "📰",
+      music: "🎵",
+      art: "🖼️",
+      science: "🔬",
+      gaming: "🎮",
+      sports: "🏀",
+      book: "📚",
+      web: "🌐",
+      youtube: "▶️",
+      medical: "🩺",
+      contractors: "👷",
+      thailand: "🇹🇭",
+      uk: "🇬🇧",
+      usa: "🇺🇸",
+      default: "✨"
+    };
+
+    // --- Render Function ---
+    // ...existing code...
+function renderEmbeds(filter = "") {
+  grid.innerHTML = "";
+  let anyVisible = false;
+  embeds.forEach((embed, idx) => {
+    if (filter && !embed.category.toLowerCase().includes(filter.toLowerCase())) return;
+    anyVisible = true;
+    const card = document.createElement("div");
+    card.className = "embed";
+    card.setAttribute("data-category", embed.category.toLowerCase());
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open embed: ${embed.title}`);
+    // Icon for category
+    const icon = categoryIcons[embed.category.toLowerCase()] || categoryIcons.default;
+    card.innerHTML = `
+      <div class="card-category">
+        <span class="category-badge">${icon} ${capitalize(embed.category)}</span>
+      </div>
+      <iframe src="${embed.url}" title="${embed.title}"></iframe>
+      <p>${embed.title}</p>
+    `;
+    // Card click/keyboard event
+    card.addEventListener("click", () => openModal(embed.url));
+    card.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" || e.key === " ") openModal(embed.url);
+    });
+    grid.appendChild(card);
+  });
+  emptyState.style.display = anyVisible ? "none" : "block";
+}
+// ...existing code...
+
+    // --- Capitalize helper ---
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // --- Modal Functions with Focus Trap ---
+    function openModal(url) {
+      modalIframe.src = url;
+      modal.style.display = "flex";
+      setTimeout(() => {
+        closeBtn.focus();
+      }, 100);
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      modal.style.display = "none";
+      modalIframe.src = "";
+      document.body.style.overflow = "";
+    }
+    // Focus trap for modal
+    modal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+      // Trap focus inside modal
+      const focusable = modal.querySelectorAll('button, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // --- Add Embed Function with Validation ---
+    function addEmbed() {
+      const title = document.getElementById("titleInput").value.trim();
+      const category = document.getElementById("categoryInput").value.trim();
+      const url = document.getElementById("urlInput").value.trim();
+      if (!title || !category || !url) {
+        alert("Please fill all fields");
+        return;
+      }
+      // Basic Scribd embed URL validation
+      if (!/^https:\/\/www\.scribd\.com\/embeds\//.test(url)) {
+        alert("Please enter a valid Scribd embed URL.");
+        return;
+      }
+      embeds.unshift({ title, category, url });
+      saveEmbedsToStorage(embeds);
+      renderEmbeds(document.getElementById("searchInput").value);
+      document.getElementById("titleInput").value = "";
+      document.getElementById("categoryInput").value = "";
+      document.getElementById("urlInput").value = "";
+    }
+
+    // --- Theme Switcher ---
+    function switchTheme(theme) {
+      document.body.className = theme;
+    }
+
+    // --- Search Filter ---
+    document.getElementById("searchInput").addEventListener("input", function(e) {
+      renderEmbeds(e.target.value);
+    });
+
+    // --- Initial Render ---
+    renderEmbeds();
+
+    // --- Keyboard accessibility for add button
+    document.getElementById("addBtn").addEventListener("keypress", function(e) {
+      if (e.key === "Enter" || e.key === " ") addEmbed();
+    });
+
+    // --- Share Feature ---
+    function shareEmbeds() {
+      // Export only user-added embeds (not initialEmbeds)
+      const userEmbeds = embeds.filter(e => !initialEmbeds.some(init => init.title === e.title && init.url === e.url));
+      const exportData = JSON.stringify(userEmbeds, null, 2);
+      shareTextarea.value = exportData;
+      shareCopied.style.display = "none";
+      importTextarea.value = "";
+      importStatus.style.display = "none";
+      shareModal.style.display = "flex";
+      setTimeout(() => closeShareBtn.focus(), 100);
+      document.body.style.overflow = "hidden";
+    }
+    function closeShareModal() {
+      shareModal.style.display = "none";
+      document.body.style.overflow = "";
+    }
+    closeShareBtn.addEventListener("click", closeShareModal);
+    shareModal.addEventListener("click", function(e) {
+      if (e.target === shareModal) closeShareModal();
+    });
+    shareModal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeShareModal();
+      // Trap focus inside modal
+      const focusable = shareModal.querySelectorAll('button, [tabindex]:not([tabindex="-1"]), textarea');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+
+    function copyShareLink() {
+      shareTextarea.select();
+      document.execCommand("copy");
+      shareCopied.style.display = "block";
+      setTimeout(() => { shareCopied.style.display = "none"; }, 1500);
+    }
+
+    function importEmbeds() {
+      let data;
+      try {
+        data = JSON.parse(importTextarea.value);
+        if (!Array.isArray(data)) throw new Error();
+      } catch {
+        importStatus.textContent = "Invalid embed data!";
+        importStatus.style.display = "block";
+        return;
+      }
+      let added = 0;
+      data.forEach(embed => {
+        if (
+          embed.title && embed.category && embed.url &&
+          /^https:\/\/www\.scribd\.com\/embeds\//.test(embed.url) &&
+          !embeds.some(e => e.title === embed.title && e.url === embed.url)
+        ) {
+          embeds.unshift(embed);
+          added++;
+        }
+      });
+      if (added > 0) {
+        saveEmbedsToStorage(embeds);
+        renderEmbeds(document.getElementById("searchInput").value);
+        importStatus.textContent = `Imported ${added} embed(s)!`;
+      } else {
+        importStatus.textContent = "No new valid embeds found.";
+      }
+      importStatus.style.display = "block";
+    }
+  </script>
+</body>
+</html>
+
+
+
+<!-- 
+/// TYPE: 3 -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gen Z Email Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fefefe;
+      --text: #1e1e1e;
+      --card: #ffffff;
+      --accent: #ff80ab;
+      --overlay: rgba(0,0,0,0.6);
+      --modal-bg: #fff;
+    }
+
+    body.bubblegum {
+      --bg: #fff0f6;
+      --text: #5a005a;
+      --card: #fff;
+      --accent: #ff69b4;
+    }
+
+    body.matrix {
+      --bg: #000;
+      --text: #00ff00;
+      --card: #111;
+      --accent: #00ff00;
+    }
+
+    body.vaporwave {
+      --bg: #fdf6e3;
+      --text: #ff6ec7;
+      --card: #ffe4e1;
+      --accent: #ff77ff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      flex-wrap: wrap;
+    }
+
+    .controls input,
+    .controls select,
+    .controls button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    h1 {
+      text-align: center;
+      padding-top: 20px;
+      color: var(--accent);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      padding: 24px;
+    }
+
+    .embed {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .embed iframe {
+      width: 100%;
+      height: 280px;
+      border: none;
+      display: block;
+    }
+
+    .card-category {
+      font-weight: 600;
+      font-size: 16px;
+      padding: 10px;
+      color: var(--accent);
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    .embed p {
+      padding: 0 12px 12px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: var(--overlay);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--modal-bg);
+      color: var(--text);
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 90vw;
+      width: 100%;
+      max-height: 90vh;
+      overflow: auto;
+      position: relative;
+      animation: zoomIn 0.3s ease;
+      outline: none;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 65vh;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--accent);
+      background: none;
+      border: none;
+    }
+
+    #emptyState {
+      display: none;
+      text-align: center;
+      color: var(--accent);
+      font-size: 18px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .modal-content iframe {
+        height: 40vh;
+      }
+    }
+  </style>
+</head>
+<body class="bubblegum">
+  <h1>🎈 Gen Z Email Cards</h1>
+
+  <div class="controls">
+    <input id="searchInput" type="text" placeholder="Search by category..." aria-label="Search by category">
+    <input id="titleInput" type="text" placeholder="Embed title" aria-label="Embed title">
+    <input id="categoryInput" type="text" placeholder="Category" aria-label="Category">
+    <input id="urlInput" type="text" placeholder="Scribd embed URL" aria-label="Scribd embed URL">
+    <button onclick="addEmbed()" id="addBtn">Add Embed</button>
+    <select id="themeSwitcher" onchange="switchTheme(this.value)" aria-label="Theme switcher">
+      <option value="bubblegum">Bubblegum</option>
+      <option value="matrix">Matrix</option>
+      <option value="vaporwave">Vaporwave</option>
+    </select>
+  </div>
+
+  <div class="card-grid" id="grid"></div>
+  <div id="emptyState">No embeds found.</div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Embed Modal">
+    <div class="modal-content" tabindex="-1">
+      <button class="close-btn" id="closeBtn" aria-label="Close modal">✖</button>
+      <iframe id="modalIframe" src="" title="Embed preview"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // --- Persistence helpers ---
+    function saveEmbedsToStorage(embeds) {
+      localStorage.setItem('genz_embeds', JSON.stringify(embeds));
+    }
+    function loadEmbedsFromStorage() {
+      return JSON.parse(localStorage.getItem('genz_embeds') || '[]');
+    }
+
+    // --- DOM Elements ---
+    const grid = document.getElementById("grid");
+    const modal = document.getElementById("modal");
+    const modalIframe = document.getElementById("modalIframe");
+    const closeBtn = document.getElementById("closeBtn");
+    const modalContent = document.querySelector(".modal-content");
+    const emptyState = document.getElementById("emptyState");
+
+    // --- Initial Embeds ---
+    const initialEmbeds = [
+      {
+        title: "14M BTC user leads 🔥",
+        category: "crypto",
+        url: "https://www.scribd.com/embeds/626662329/content?start_page=1&view_mode=scroll&access_key=key-EDW4Y3DYz1GCbSiONuGy"
+      }
+    ];
+
+    // --- Load or Initialize Embeds ---
+    let embeds = loadEmbedsFromStorage();
+    if (embeds.length === 0) {
+      embeds = initialEmbeds;
+      saveEmbedsToStorage(embeds);
+    }
+
+    // --- Render Function ---
+    function renderEmbeds(filter = "") {
+      grid.innerHTML = "";
+      let anyVisible = false;
+      embeds.forEach((embed, idx) => {
+        if (!embed.category.toLowerCase().includes(filter.toLowerCase())) return;
+        anyVisible = true;
+        const card = document.createElement("div");
+        card.className = "embed";
+        card.setAttribute("data-category", embed.category.toLowerCase());
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Open embed: ${embed.title}`);
+        card.innerHTML = `
+          <div class="card-category">${capitalize(embed.category)}</div>
+          <iframe src="${embed.url}" title="${embed.title}"></iframe>
+          <p>${embed.title}</p>
+        `;
+        // Card click/keyboard event
+        card.addEventListener("click", () => openModal(embed.url));
+        card.addEventListener("keypress", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(embed.url);
+        });
+        grid.appendChild(card);
+      });
+      emptyState.style.display = anyVisible ? "none" : "block";
+    }
+
+    // --- Capitalize helper ---
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // --- Modal Functions with Focus Trap ---
+    function openModal(url) {
+      modalIframe.src = url;
+      modal.style.display = "flex";
+      setTimeout(() => {
+        closeBtn.focus();
+      }, 100);
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      modal.style.display = "none";
+      modalIframe.src = "";
+      document.body.style.overflow = "";
+    }
+    // Focus trap for modal
+    modal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+      // Trap focus inside modal
+      const focusable = modal.querySelectorAll('button, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // --- Add Embed Function with Validation ---
+    function addEmbed() {
+      const title = document.getElementById("titleInput").value.trim();
+      const category = document.getElementById("categoryInput").value.trim();
+      const url = document.getElementById("urlInput").value.trim();
+      if (!title || !category || !url) {
+        alert("Please fill all fields");
+        return;
+      }
+      // Basic Scribd embed URL validation
+      if (!/^https:\/\/www\.scribd\.com\/embeds\//.test(url)) {
+        alert("Please enter a valid Scribd embed URL.");
+        return;
+      }
+      embeds.unshift({ title, category, url });
+      saveEmbedsToStorage(embeds);
+      renderEmbeds(document.getElementById("searchInput").value);
+      document.getElementById("titleInput").value = "";
+      document.getElementById("categoryInput").value = "";
+      document.getElementById("urlInput").value = "";
+    }
+
+    // --- Theme Switcher ---
+    function switchTheme(theme) {
+      document.body.className = theme;
+    }
+
+    // --- Search Filter ---
+    document.getElementById("searchInput").addEventListener("input", function(e) {
+      renderEmbeds(e.target.value);
+    });
+
+    // --- Initial Render ---
+    renderEmbeds();
+
+    // --- Keyboard accessibility for add button
+    document.getElementById("addBtn").addEventListener("keypress", function(e) {
+      if (e.key === "Enter" || e.key === " ") addEmbed();
+    });
+  </script>
+</body>
+</html> 
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gen Z Email Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fefefe 0%, #ffe6fa 100%);
+      --text: #1e1e1e;
+      --card-bg: rgba(255,255,255,0.65);
+      --card-border: rgba(255,128,171,0.18);
+      --accent: #ff80ab;
+      --accent-gradient: linear-gradient(90deg, #ff80ab, #ff69b4 70%);
+      --badge-bg: #ff80ab22;
+      --overlay: rgba(0,0,0,0.6);
+      --modal-bg: rgba(255,255,255,0.85);
+      --focus: #ff80ab;
+    }
+
+    body.bubblegum {
+      --bg-gradient: linear-gradient(135deg, #fff0f6 0%, #ffe6fa 100%);
+      --text: #5a005a;
+      --card-bg: rgba(255,255,255,0.75);
+      --accent: #ff69b4;
+      --accent-gradient: linear-gradient(90deg, #ff69b4, #ff80ab 70%);
+      --badge-bg: #ff69b422;
+      --focus: #ff69b4;
+    }
+
+    body.matrix {
+      --bg-gradient: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      --text: #00ff00;
+      --card-bg: rgba(17,17,17,0.8);
+      --accent: #00ff00;
+      --accent-gradient: linear-gradient(90deg, #00ff00, #00ffa3 70%);
+      --badge-bg: #00ff0022;
+      --focus: #00ff00;
+    }
+
+    body.vaporwave {
+      --bg-gradient: linear-gradient(135deg, #fdf6e3 0%, #ffe4e1 100%);
+      --text: #ff6ec7;
+      --card-bg: rgba(255,228,225,0.7);
+      --accent: #ff77ff;
+      --accent-gradient: linear-gradient(90deg, #ff77ff, #b49fff 70%);
+      --badge-bg: #ff77ff22;
+      --focus: #ff77ff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text);
+      font-family: 'Rubik', sans-serif;
+      transition: background 0.6s cubic-bezier(.77,0,.18,1), color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+      padding-top: 32px;
+      font-size: 2.4rem;
+      letter-spacing: 0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px #fff7, 0 1px 2px #0002;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding: 18px 0 10px 0;
+      flex-wrap: wrap;
+      background: transparent;
+    }
+    .controls input,
+    .controls select,
+    .controls button {
+      padding: 11px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--card-border);
+      font-size: 15px;
+      background: rgba(255,255,255,0.8);
+      margin-bottom: 4px;
+      outline: none;
+      box-shadow: 0 2px 8px #0001;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .controls input:focus,
+    .controls select:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 2px var(--focus)33;
+    }
+    .controls button {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #ff80ab22;
+      transition: transform 0.18s, box-shadow 0.18s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .controls button:active {
+      transform: scale(0.96);
+    }
+    .controls select {
+      background: rgba(255,255,255,0.95);
+      color: var(--accent);
+      font-weight: 600;
+      border: 2px solid var(--accent);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      padding: 36px 24px 24px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .embed {
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.14), 0 1.5px 6px 0 var(--accent)11;
+      border: 1.5px solid var(--card-border);
+      overflow: hidden;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform 0.18s cubic-bezier(.77,0,.18,1), box-shadow 0.18s, border 0.18s;
+      position: relative;
+      outline: none;
+    }
+    .embed:hover, .embed:focus {
+      transform: translateY(-6px) scale(1.035);
+      box-shadow: 0 16px 40px 0 var(--accent)33, 0 2px 16px 0 #0002;
+      border-color: var(--accent);
+      z-index: 2;
+    }
+    .embed iframe {
+      width: 100%;
+      height: 240px;
+      border: none;
+      display: block;
+      border-bottom: 1.5px solid var(--accent)22;
+      background: #fff;
+    }
+    .card-category {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 700;
+      font-size: 1.07rem;
+      color: var(--accent);
+      padding: 12px 0 7px 0;
+      text-align: center;
+      text-transform: capitalize;
+      letter-spacing: 0.01em;
+    }
+    .category-badge {
+      background: var(--badge-bg);
+      border-radius: 999px;
+      padding: 4px 14px 4px 10px;
+      font-size: 1.08em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      border: 1px solid var(--accent)22;
+    }
+    .embed p {
+      padding: 0 18px 18px 18px;
+      font-size: 1.08rem;
+      text-align: center;
+      color: var(--text);
+      margin: 0;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    #emptyState {
+      display: none;
+      text-align: center;
+      color: var(--accent);
+      font-size: 1.18rem;
+      margin-top: 36px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: var(--overlay);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.26s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-content {
+      background: var(--modal-bg);
+      color: var(--text);
+      padding: 0 0 24px 0;
+      border-radius: 24px;
+      max-width: 94vw;
+      width: 480px;
+      max-height: 92vh;
+      overflow: auto;
+      position: relative;
+      animation: zoomIn 0.3s cubic-bezier(.77,0,.18,1);
+      outline: none;
+      box-shadow: 0 8px 40px 0 var(--accent)33, 0 2px 16px 0 #0002;
+      border: 2.5px solid var(--accent)22;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-content iframe {
+      width: 100%;
+      height: 56vh;
+      border: none;
+      border-radius: 18px 18px 0 0;
+      background: #fff;
+    }
+    .close-btn {
+      position: absolute;
+      top: 9px;
+      right: 17px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      z-index: 2;
+      transition: color 0.2s;
+      padding: 0;
+      line-height: 1;
+    }
+    .close-btn:focus {
+      color: #fff;
+      background: var(--accent);
+      border-radius: 50%;
+      outline: 2px solid var(--focus);
+    }
+
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 96vw;
+        padding: 0 0 12px 0;
+      }
+      .modal-content iframe {
+        height: 36vh;
+      }
+      .card-grid {
+        padding: 18px 4vw 18px 4vw;
+        gap: 18px;
+      }
+      .embed iframe {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body class="bubblegum">
+  <h1>🎈 Gen Z Email Cards</h1>
+  <div class="controls">
+    <input id="searchInput" type="text" placeholder="Search by category..." aria-label="Search by category">
+    <input id="titleInput" type="text" placeholder="Embed title" aria-label="Embed title">
+    <input id="categoryInput" type="text" placeholder="Category" aria-label="Category">
+    <input id="urlInput" type="text" placeholder="Scribd embed URL" aria-label="Scribd embed URL">
+    <button onclick="addEmbed()" id="addBtn">
+      <span>➕</span> Add Embed
+    </button>
+    <select id="themeSwitcher" onchange="switchTheme(this.value)" aria-label="Theme switcher">
+      <option value="bubblegum">Bubblegum</option>
+      <option value="matrix">Matrix</option>
+      <option value="vaporwave">Vaporwave</option>
+    </select>
+  </div>
+  <div class="card-grid" id="grid"></div>
+  <div id="emptyState">No embeds found.</div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Embed Modal">
+    <div class="modal-content" tabindex="-1">
+      <button class="close-btn" id="closeBtn" aria-label="Close modal">✖</button>
+      <iframe id="modalIframe" src="" title="Embed preview"></iframe>
+    </div>
+  </div>
+  <script>
+    // --- Persistence helpers ---
+    function saveEmbedsToStorage(embeds) {
+      localStorage.setItem('genz_embeds', JSON.stringify(embeds));
+    }
+    function loadEmbedsFromStorage() {
+      return JSON.parse(localStorage.getItem('genz_embeds') || '[]');
+    }
+
+    // --- DOM Elements ---
+    const grid = document.getElementById("grid");
+    const modal = document.getElementById("modal");
+    const modalIframe = document.getElementById("modalIframe");
+    const closeBtn = document.getElementById("closeBtn");
+    const modalContent = document.querySelector(".modal-content");
+    const emptyState = document.getElementById("emptyState");
+
+    // --- Initial Embeds ---
+    const initialEmbeds = [
+      {
+        title: "14M BTC user leads 🔥",
+        category: "crypto",
+        url: "https://www.scribd.com/embeds/626662329/content?start_page=1&view_mode=scroll&access_key=key-EDW4Y3DYz1GCbSiONuGy"
+      },
+      
+      {
+        title: "Free Email Database of USA",
+        category: "usa",
+        url: "https://www.scribd.com/embeds/602150644/content?start_page=1&view_mode=scroll&access_key=key-h0nMosJdnChr7ZttCcvj"
+      },
+        {
+        title: "1.3 Million - THAILAND Email Leads",
+        category: "thailand",
+        url: "https://www.scribd.com/embeds/702112575/content?start_page=1&view_mode=scroll&access_key=key-67KUHqVGphpiDY8H42i9"
+      },
+        
+        {
+            title: "Free Email Database of UK",
+            category: "uk",
+            url: "https://www.scribd.com/embeds/602150644/content?start_page=1&view_mode=scroll&access_key=key-h0nMosJdnChr7ZttCcvj"
+        },
+
+        {
+        title: "Contractors E-mail",
+        category: "contractors",
+        url: "https://www.scribd.com/embeds/673056750/content?start_page=1&view_mode=scroll&access_key=key-6bTv0e3xeUrjOVFophFm"
+      },
+
+      {
+        title: "IT Email Database of Usa b2b Corporate Companies Business Sample",
+        category: "usa",
+        url: "https://www.scribd.com/embeds/712410895/content?start_page=1&view_mode=scroll&access_key=key-mLepcXkt7QaMiWLu7pdS"
+      },
+       {
+        title: "10k A Month With YouTube Automation Guide by Chems",
+        category: "youtube",
+        url: "https://www.scribd.com/embeds/736060254/content?start_page=1&view_mode=scroll&access_key=key-lqmT19PPbR36NQrQvXVW"
+      },
+
+      {
+        title: "Basics of Medical Billing & Coding",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/553581081/content?start_page=1&view_mode=scroll&access_key=key-3EyJxe9xMzlKtcqTjHDb"
+      },
+      {
+        title: "RCM Cycle",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/516171625/content?start_page=1&view_mode=scroll&access_key=key-i3cDSB4LvUoMHh6C0CHp"
+      },
+
+      {
+        title: "Neuropsychology for Health Care Professionals and Attorneys (2000)",
+        category: "medical",
+        url: "https://www.scribd.com/embeds/457547191/content?start_page=1&view_mode=scroll&access_key=key-mfKQ0e4MtDb0LAEdUEhs"
+      },
+
+
+    ];
+
+    // --- Load or Initialize Embeds ---
+    let embeds = loadEmbedsFromStorage();
+    if (embeds.length === 0) {
+      embeds = initialEmbeds;
+      saveEmbedsToStorage(embeds);
+    }
+
+    // --- Category icons ---
+    const categoryIcons = {
+      crypto: "🪙",
+      tech: "💻",
+      design: "🎨",
+      finance: "💰",
+      news: "📰",
+      music: "🎵",
+      art: "🖼️",
+      science: "🔬",
+      gaming: "🎮",
+      sports: "🏀",
+      book: "📚",
+      web: "🌐",
+      default: "✨"
+    };
+
+    // --- Render Function ---
+    function renderEmbeds(filter = "") {
+      grid.innerHTML = "";
+      let anyVisible = false;
+      embeds.forEach((embed, idx) => {
+        if (!embed.category.toLowerCase().includes(filter.toLowerCase())) return;
+        anyVisible = true;
+        const card = document.createElement("div");
+        card.className = "embed";
+        card.setAttribute("data-category", embed.category.toLowerCase());
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Open embed: ${embed.title}`);
+        // Icon for category
+        const icon = categoryIcons[embed.category.toLowerCase()] || categoryIcons.default;
+        card.innerHTML = `
+          <div class="card-category">
+            <span class="category-badge">${icon} ${capitalize(embed.category)}</span>
+          </div>
+          <iframe src="${embed.url}" title="${embed.title}"></iframe>
+          <p>${embed.title}</p>
+        `;
+        // Card click/keyboard event
+        card.addEventListener("click", () => openModal(embed.url));
+        card.addEventListener("keypress", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(embed.url);
+        });
+        grid.appendChild(card);
+      });
+      emptyState.style.display = anyVisible ? "none" : "block";
+    }
+
+    // --- Capitalize helper ---
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // --- Modal Functions with Focus Trap ---
+    function openModal(url) {
+      modalIframe.src = url;
+      modal.style.display = "flex";
+      setTimeout(() => {
+        closeBtn.focus();
+      }, 100);
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      modal.style.display = "none";
+      modalIframe.src = "";
+      document.body.style.overflow = "";
+    }
+    // Focus trap for modal
+    modal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+      // Trap focus inside modal
+      const focusable = modal.querySelectorAll('button, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.key === "Tab") {
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function(e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // --- Add Embed Function with Validation ---
+    function addEmbed() {
+      const title = document.getElementById("titleInput").value.trim();
+      const category = document.getElementById("categoryInput").value.trim();
+      const url = document.getElementById("urlInput").value.trim();
+      if (!title || !category || !url) {
+        alert("Please fill all fields");
+        return;
+      }
+      // Basic Scribd embed URL validation
+      if (!/^https:\/\/www\.scribd\.com\/embeds\//.test(url)) {
+        alert("Please enter a valid Scribd embed URL.");
+        return;
+      }
+      embeds.unshift({ title, category, url });
+      saveEmbedsToStorage(embeds);
+      renderEmbeds(document.getElementById("searchInput").value);
+      document.getElementById("titleInput").value = "";
+      document.getElementById("categoryInput").value = "";
+      document.getElementById("urlInput").value = "";
+    }
+
+    // --- Theme Switcher ---
+    function switchTheme(theme) {
+      document.body.className = theme;
+    }
+
+    // --- Search Filter ---
+    document.getElementById("searchInput").addEventListener("input", function(e) {
+      renderEmbeds(e.target.value);
+    });
+
+    // --- Initial Render ---
+    renderEmbeds();
+
+    // --- Keyboard accessibility for add button
+    document.getElementById("addBtn").addEventListener("keypress", function(e) {
+      if (e.key === "Enter" || e.key === " ") addEmbed();
+    });
+  </script>
+</body>
+</html>  -->
