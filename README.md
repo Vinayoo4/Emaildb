@@ -28,7 +28,7 @@
 
 <h2>File Structure</h2>
 <ul>
-  <li><code>email.html</code> — The main HTML file containing all markup, styles, and JavaScript.</li>
+  <li><code>index.html</code> — The main HTML file containing all markup, styles, and JavaScript.</li>
 </ul>
 
 <h2>Requirements</h2>
